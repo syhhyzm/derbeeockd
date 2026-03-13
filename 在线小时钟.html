@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>在线小时钟</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+      color: white;
+    }
+
+    .clock-box {
+      text-align: center;
+      padding: 36px 28px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      width: min(92vw, 520px);
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: 30px;
+    }
+
+    #time {
+      font-size: 56px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin: 10px 0 16px;
+    }
+
+    #date {
+      font-size: 20px;
+      opacity: 0.9;
+    }
+
+    .tip {
+      margin-top: 18px;
+      font-size: 14px;
+      opacity: 0.75;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock-box">
+    <h1>在线小时钟</h1>
+    <div id="time">00:00:00</div>
+    <div id="date">0000年00月00日 星期一</div>
+    <div class="tip">这个时间会自动刷新</div>
+  </div>
+
+  <script>
+    function pad(num) {
+      return String(num).padStart(2, "0");
+    }
+
+    function getWeekday(day) {
+      const arr = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+      return arr[day];
+    }
+
+    function updateClock() {
+      const now = new Date();
+
+      const year = now.getFullYear();
+      const month = pad(now.getMonth() + 1);
+      const date = pad(now.getDate());
+      const hours = pad(now.getHours());
+      const minutes = pad(now.getMinutes());
+      const seconds = pad(now.getSeconds());
+      const weekday = getWeekday(now.getDay());
+
+      document.getElementById("time").textContent = `${hours}:${minutes}:${seconds}`;
+      document.getElementById("date").textContent = `${year}年${month}月${date}日 ${weekday}`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
